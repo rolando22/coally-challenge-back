@@ -1,0 +1,249 @@
+paths:
+  /api/auth/login:
+    post:
+      tags:
+        - auth
+      sumary: Login
+      requestBody:
+        description: Object that needs to be login
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+        required: true
+      responses:
+        "200":
+          description: Return user and token
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserLogin"
+        "400":
+          description: Invalid data
+          content: {}
+        "500":
+          description: Some server error
+          content: {}
+
+  /api/tasks:
+    get:
+      tags:
+        - tasks
+      summary: Returns the list of all the Tasks of user
+      responses:
+        "200":
+          description: List of all the Tasks of user
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        "400":
+          description: Invalid query
+          content: {}
+        "500":
+          description: Some server error
+          content: {}
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - tasks
+      summary: Add a new Task of User to the DB
+      requestBody:
+        description: Task object that needs to be added to the DB
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTask"
+        required: true
+      responses:
+        "201":
+          description: Return the new Tasks created
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        "400":
+          description: Invalid data
+          content: {}
+        "404":
+          description: Task not found
+          content: {}
+        "500":
+          description: Some server error
+          content: {}
+      security:
+        - bearerAuth: []  
+
+  /api/tasks/{id}:
+    get:
+      tags:
+        - tasks
+      summary: Return a Tasks of User by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of task to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return a Tasks of User by ID
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        "404":
+          description: Task not found
+          content: {}
+        "500":
+          description: Some server error
+          content: {}
+      security:
+        - bearerAuth: []    
+    put:
+      tags:
+        - tasks
+      summary: Update a Task of User by ID to the DB
+      requestBody:
+        description: Task object that needs to be update to the DB
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTask"
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: ID of task to update
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return the Tasks updated of user
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        "400":
+          description: Invalid data
+          content: {}
+        "404":
+          description: Task not found
+          content: {}
+        "500":
+          description: Some server error
+          content: {}
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - tasks
+      summary: Delete a Task of User by ID to the DB
+      parameters:
+        - name: id
+          in: path
+          description: ID of task to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return the Tasks deleted of user
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        "404":
+          description: Task not found
+          content: {}
+        "500":
+          description: Some server error
+          content: {}
+      security:
+        - bearerAuth: []   
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: boolean
+          default: false
+        image:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Login:
+      type: object
+      properties:
+        email: string
+        password: string
+      required:
+        - email
+        - password
+    UserLogin:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        token:
+          type: string
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        completed:
+          type: boolean
+          default: false
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+    CreateTask:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+      required:
+        - title
+    UpdateTask:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        completed:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

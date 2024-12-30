@@ -1,0 +1,32 @@
+###
+GET http://localhost:3004/api/tasks?completed=pending
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImF0dW55MCIsImlhdCI6MTczNTU4MzkwNiwiZXhwIjoxODIxOTgzOTA2fQ.-cOMZvrWdstaseXG20NJnHGzW7y1qQNgreHPQoasc0U
+
+###
+GET http://localhost:3004/api/tasks/82bb3d27-bb04-412b-8893-b712cbf85755
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImF0dW55MCIsImlhdCI6MTczNTU4MzkwNiwiZXhwIjoxODIxOTgzOTA2fQ.-cOMZvrWdstaseXG20NJnHGzW7y1qQNgreHPQoasc0U
+
+###
+POST http://localhost:3004/api/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImF0dW55MCIsImlhdCI6MTczNTU4MzkwNiwiZXhwIjoxODIxOTgzOTA2fQ.-cOMZvrWdstaseXG20NJnHGzW7y1qQNgreHPQoasc0U
+
+{
+    "title": "Desarrollar API",
+    "description": "Lorem ipsum"
+}
+
+###
+PUT http://localhost:3004/api/tasks/6771cd78faafa636e2dffe23
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImF0dW55MCIsImlhdCI6MTczNTU4MzkwNiwiZXhwIjoxODIxOTgzOTA2fQ.-cOMZvrWdstaseXG20NJnHGzW7y1qQNgreHPQoasc0U
+
+{
+    "title": "API Terminada",
+    "description": "Lorem ipsum Lorem",
+    "completed": true
+}
+
+###
+DELETE  http://localhost:3004/api/tasks/af7d8ba1-0bf9-45a7-b0c5-3752ce3b0235
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImF0dW55MCIsImlhdCI6MTczNTU4MzkwNiwiZXhwIjoxODIxOTgzOTA2fQ.-cOMZvrWdstaseXG20NJnHGzW7y1qQNgreHPQoasc0U

@@ -1,0 +1,10 @@
+services:
+  coally-challenge-back: 
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      - 3004:3004
+    volumes:
+      - .:/myapi
+    command: sh -c "npm install && npm run dev:local"
